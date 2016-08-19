@@ -63,7 +63,7 @@ public class Controller implements Initializable {
 
 
     public void work(MouseEvent mouseEvent) throws InterruptedException {
-        if (!Main.isDone) {
+        if (!Main.isDone && !Main.announcementMode) {
             if (mouseEvent.getButton() == MouseButton.PRIMARY) {
                 Main.counterJa++;
                 counterJa.setVisible(true);
@@ -103,17 +103,22 @@ public class Controller implements Initializable {
             @Override
             public void run() {
                 while (true) {
-                    if (!Main.isDone) {
-                        long currentTime = Calendar.getInstance().getTimeInMillis();
-                        if (currentTime >= resetTimeJa) {
-                            counterJa.setVisible(false);
-                        }
-                        if (currentTime >= resetTimeNein) {
-                            counterNein.setVisible(false);
+                    if (!Main.announcementMode) {
+                        if (!Main.isDone) {
+                            long currentTime = Calendar.getInstance().getTimeInMillis();
+                            if (currentTime >= resetTimeJa) {
+                                counterJa.setVisible(false);
+                            }
+                            if (currentTime >= resetTimeNein) {
+                                counterNein.setVisible(false);
+                            }
+                        } else {
+                            counterJa.setVisible(true);
+                            counterNein.setVisible(true);
                         }
                     } else {
-                        counterJa.setVisible(true);
-                        counterNein.setVisible(true);
+                        counterJa.setVisible(false);
+                        counterNein.setVisible(false);
                     }
 
                     try {
