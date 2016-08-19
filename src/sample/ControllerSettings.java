@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 /**
@@ -37,6 +36,7 @@ public class ControllerSettings implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 Main.endHour = newValue.intValue();
+                Main.writeSettingsCSV();
             }
         });
 
@@ -44,17 +44,19 @@ public class ControllerSettings implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 Main.endMinute = newValue.intValue();
+                Main.writeSettingsCSV();
             }
         });
     }
 
     public void onDatePickerClicked(ActionEvent actionEvent) {
         Main.endDate = pickerEndDate.getValue();
+        Main.writeSettingsCSV();
     }
 
     public void onAnnouncementClicked(ActionEvent actionEvent) {
         Main.announcementMode = announcement.isSelected();
-        labelEndDate.setText(Boolean.toString(announcement.isSelected()));
+        Main.writeSettingsCSV();
     }
 
     public void onResetCountersClicked(ActionEvent actionEvent) {
