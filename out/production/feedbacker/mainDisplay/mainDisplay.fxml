@@ -17,6 +17,6 @@
          <font>
             <Font size="48.0" />
          </font></Label>
-      <Button fx:id="buttonSettings" layoutX="1.0" layoutY="1.0" mnemonicParsing="false" onAction="#openSettings" text="Settings" />
+      <Button fx:id="buttonSettings" layoutX="1.0" layoutY="1.0" mnemonicParsing="false" text="Settings" />
    </children>
 </AnchorPane>
