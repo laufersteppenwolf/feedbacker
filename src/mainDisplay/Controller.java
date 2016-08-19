@@ -40,7 +40,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -58,8 +57,6 @@ public class Controller implements Initializable {
 
     public long resetTimeJa;
     public long resetTimeNein;
-
-    String[] previousLog = new String[10000];
 
 
     public void work(MouseEvent mouseEvent) throws InterruptedException {
