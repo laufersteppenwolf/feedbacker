@@ -72,24 +72,27 @@ public class Main extends Application {
      */
 
     static void readSettingsCSV() {
-        BufferedReader fileReader = null;
-        String[] tokens = new String[10];
-        try {
-            fileReader = new BufferedReader(new FileReader(CSV_PATH_SETTINGS));
+        File f = new File(CSV_PATH_SETTINGS);
+        if (f.exists()) {
+            BufferedReader fileReader = null;
+            String[] tokens = new String[10];
             try {
-                tokens = fileReader.readLine().split(";");
-            } catch (IOException e) {
+                fileReader = new BufferedReader(new FileReader(CSV_PATH_SETTINGS));
+                try {
+                    tokens = fileReader.readLine().split(";");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        if (tokens[0] != null) {
-            endDate = LocalDate.parse(tokens[0]);
-            endHour = Integer.parseInt(tokens[1]);
-            endMinute = Integer.parseInt(tokens[2]);
-            announcementMode = Boolean.parseBoolean(tokens[3]);
+            if (tokens[0] != null) {
+                endDate = LocalDate.parse(tokens[0]);
+                endHour = Integer.parseInt(tokens[1]);
+                endMinute = Integer.parseInt(tokens[2]);
+                announcementMode = Boolean.parseBoolean(tokens[3]);
+            }
         }
     }
 

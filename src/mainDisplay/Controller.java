@@ -174,25 +174,33 @@ public class Controller implements Initializable {
         counterJa.setText(Integer.toString(Main.counterJa));
         counterNein.setText(Integer.toString(Main.counterNein));
 
+        File f = new File(CSV_PATH_LOG);
+        if (!f.exists()) {
+            writeLogHeaderCSV();
+        }
+
     }
 
     void readCSV() {
-        BufferedReader fileReader = null;
-        String[] tokens = new String[2];
-        try {
-            fileReader = new BufferedReader(new FileReader(CSV_PATH_DATA));
+        File f = new File(CSV_PATH_DATA);
+        if (f.exists()) {
+            BufferedReader fileReader = null;
+            String[] tokens = new String[2];
             try {
-                tokens = fileReader.readLine().split(";");
-            } catch (IOException e) {
+                fileReader = new BufferedReader(new FileReader(CSV_PATH_DATA));
+                try {
+                    tokens = fileReader.readLine().split(";");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        if (tokens[0] != null) {
-            Main.counterJa = Integer.parseInt(tokens[0]);
-            Main.counterNein = Integer.parseInt(tokens[1]);
+            if (tokens[0] != null) {
+                Main.counterJa = Integer.parseInt(tokens[0]);
+                Main.counterNein = Integer.parseInt(tokens[1]);
+            }
         }
     }
 
