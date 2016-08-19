@@ -44,9 +44,9 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
-    public static final String CSV_PATH_DATA = "C:\\Temp\\data.csv";
-    public static final String CSV_PATH_LOG = "C:\\Temp\\log.csv";
-    public static final String BACKGROUND_PATH = "C:\\test.png";
+    public static final String CSV_PATH_DATA = "S:\\data.csv";
+    public static final String CSV_PATH_LOG = "S:\\log.csv";
+    public static final String BACKGROUND_PATH = "S:\\test.png";
 
     public ImageView background;
     public Label counterJa;
@@ -61,6 +61,7 @@ public class Controller implements Initializable {
 
     public void work(MouseEvent mouseEvent) throws InterruptedException {
         if (!Main.isDone && !Main.announcementMode) {
+            readCSV();
             if (mouseEvent.getButton() == MouseButton.PRIMARY) {
                 Main.counterJa++;
                 counterJa.setVisible(true);
@@ -149,6 +150,8 @@ public class Controller implements Initializable {
                             //System.out.println("7");
                         }
                     }
+
+                    Main.readSettingsCSV();
                 }
             }
         });

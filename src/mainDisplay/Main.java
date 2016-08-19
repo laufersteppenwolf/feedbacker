@@ -28,7 +28,7 @@ import java.time.LocalDate;
 
 public class Main extends Application {
 
-    public static final String CSV_PATH_SETTINGS = "C:\\Temp\\settings.csv";
+    public static final String CSV_PATH_SETTINGS = "S:\\settings.csv";
 
     public static int counterJa = 0;
     public static int counterNein = 0;
