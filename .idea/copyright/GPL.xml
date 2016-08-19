@@ -1,0 +1,6 @@
+<component name="CopyrightManager">
+  <copyright>
+    <option name="myName" value="GPL" />
+    <option name="notice" value="&amp;#36;file.pathName&#10;&#10;Copyright (C) &amp;#36;today.year, Stefan Zimmer&#10;&#10;This software file (the &quot;File&quot;) is distributed by Marvell International&#10;Ltd. under the terms of the GNU General Public License Version 2, June 1991&#10;(the &quot;License&quot;).  You may use, redistribute and/or modify this File in&#10;accordance with the terms and conditions of the License, a copy of which&#10;is available by writing to the Free Software Foundation, Inc.,&#10;51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA or on the&#10;worldwide web at http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.&#10;&#10;&#10;THE FILE IS DISTRIBUTED AS-IS, WITHOUT WARRANTY OF ANY KIND, AND THE&#10;IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE&#10;ARE EXPRESSLY DISCLAIMED.  The License provides additional details about&#10;this warranty disclaimer." />
+  </copyright>
+</component>
