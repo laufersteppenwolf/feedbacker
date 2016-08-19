@@ -1,4 +1,4 @@
-package sample;
+package mainDisplay;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
