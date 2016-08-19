@@ -79,5 +79,6 @@ public class ControllerSettings implements Initializable {
     public void onResetCountersClicked(ActionEvent actionEvent) {
         Main.counterJa = 0;
         Main.counterNein = 0;
+        Controller.writeLogHeaderCSV();
     }
 }
