@@ -40,14 +40,17 @@ public class Main extends Application {
     public static int endHour = 12;
     public static int endMinute = 30;
 
+    public static Stage mainStage;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        mainStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("mainDisplay.fxml"));
         primaryStage.setTitle("Feedbacker");
         primaryStage.setScene(new Scene(root, 300, 275));
-        //primaryStage.setFullScreen(true);
-        primaryStage.setMaximized(true);
+        primaryStage.setFullScreen(true);
+        //primaryStage.setMaximized(true);
 
         primaryStage.show();
 

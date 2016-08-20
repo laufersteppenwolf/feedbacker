@@ -100,6 +100,9 @@ public class Controller implements Initializable {
         counterJa.setFont(Font.font("Verdana", FontWeight.BOLD, 42));
         counterNein.setFont(Font.font("Verdana", FontWeight.BOLD, 42));
 
+        background.fitWidthProperty().bind(Main.mainStage.widthProperty());
+        background.fitHeightProperty().bind(Main.mainStage.heightProperty());
+
 
         hideLabels = new Thread(new Runnable() {
             @Override
@@ -152,7 +155,7 @@ public class Controller implements Initializable {
                     //update settings
                     Main.readSettingsCSV();
 
-                    setBackground();
+                    //setBackground();
 
                     //update remaining time label
                     Date enddate = Date.from(Main.endDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
