@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -12,11 +11,7 @@
 
 <StackPane xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainDisplay.Controller">
    <children>
-      <ImageView fx:id="background" fitHeight="1080.0" fitWidth="1920.0" onMouseClicked="#work" pickOnBounds="true">
-         <image>
-            <Image url="@../../../../../../test.png" />
-         </image>
-      </ImageView>
+      <ImageView fx:id="background" fitHeight="1080.0" fitWidth="1920.0" onMouseClicked="#work" pickOnBounds="true" />
       <GridPane hgap="10.0" onMouseClicked="#work" vgap="10.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
