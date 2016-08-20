@@ -56,7 +56,7 @@ public class Controller implements Initializable {
     public Button buttonSettings;
     public Label labelTimeRemaining;
 
-    public Thread hideLabels;
+    public static Thread hideLabels;
 
     public long resetTimeJa;
     public long resetTimeNein;
@@ -153,27 +153,36 @@ public class Controller implements Initializable {
                     }
 
                     //update settings
-                    Main.readSettingsCSV();
+                    try {
+                        Main.readSettingsCSV();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
                     //setBackground();
 
                     //update remaining time label
-                    Date enddate = Date.from(Main.endDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-                    Map<TimeUnit,Long> mapDiff = computeDiff(new Date(), enddate);
-                    String labelText = "Restzeit der Umfrage: \n" + mapDiff.get(TimeUnit.DAYS) + " Tage " + mapDiff.get(TimeUnit.HOURS) + " Stunden " + mapDiff.get(TimeUnit.MINUTES) + " Minuten";
+                    if (!Main.announcementMode && !Main.isDone) {
+                        Date enddate = Date.from(Main.endDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                        Map<TimeUnit, Long> mapDiff = computeDiff(new Date(), enddate);
+                        String labelText = "Restzeit der Umfrage: \n" + mapDiff.get(TimeUnit.DAYS) + " Tage " + mapDiff.get(TimeUnit.HOURS) + " Stunden " + mapDiff.get(TimeUnit.MINUTES) + " Minuten";
 
-                    //"Not on FX application thread" workaround
-                    Platform.runLater(new Runnable() {
-                        @Override public void run() {
-                            labelTimeRemaining.setText(labelText);
-                        }
-                    });
-
+                        //"Not on FX application thread" workaround
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                labelTimeRemaining.setText(labelText);
+                            }
+                        });
+                        labelTimeRemaining.setVisible(true);
+                    } else {
+                        labelTimeRemaining.setVisible(false);
+                    }
 
 
                     //delay
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(10);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

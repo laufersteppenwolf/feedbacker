@@ -57,7 +57,11 @@ public class Main extends Application {
         endDate = LocalDate.now();
         System.out.println(endDate);
 
-        readSettingsCSV();
+        try {
+            readSettingsCSV();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
