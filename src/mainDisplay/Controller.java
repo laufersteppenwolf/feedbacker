@@ -17,6 +17,7 @@
  */
 package mainDisplay;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +30,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
@@ -38,9 +40,9 @@ import java.io.*;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.ResourceBundle;
+import java.time.ZoneId;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class Controller implements Initializable {
 
@@ -52,6 +54,7 @@ public class Controller implements Initializable {
     public Label counterJa;
     public Label counterNein;
     public Button buttonSettings;
+    public Label labelTimeRemaining;
 
     public Thread hideLabels;
 
@@ -97,6 +100,7 @@ public class Controller implements Initializable {
         counterJa.setFont(Font.font("Verdana", FontWeight.BOLD, 42));
         counterNein.setFont(Font.font("Verdana", FontWeight.BOLD, 42));
 
+
         hideLabels = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -117,12 +121,6 @@ public class Controller implements Initializable {
                     } else {
                         counterJa.setVisible(false);
                         counterNein.setVisible(false);
-                    }
-
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
                     }
 
                     if (Main.endDate != null){
@@ -151,7 +149,31 @@ public class Controller implements Initializable {
                         }
                     }
 
+                    //update settings
                     Main.readSettingsCSV();
+
+                    setBackground();
+
+                    //update remaining time label
+                    Date enddate = Date.from(Main.endDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                    Map<TimeUnit,Long> mapDiff = computeDiff(new Date(), enddate);
+                    String labelText = "Restzeit der Umfrage: \n" + mapDiff.get(TimeUnit.DAYS) + " Tage " + mapDiff.get(TimeUnit.HOURS) + " Stunden " + mapDiff.get(TimeUnit.MINUTES) + " Minuten";
+
+                    //"Not on FX application thread" workaround
+                    Platform.runLater(new Runnable() {
+                        @Override public void run() {
+                            labelTimeRemaining.setText(labelText);
+                        }
+                    });
+
+
+
+                    //delay
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -184,6 +206,21 @@ public class Controller implements Initializable {
             writeLogHeaderCSV();
         }
 
+    }
+
+    public static Map<TimeUnit,Long> computeDiff(Date date1, Date date2) {
+        long diffInMillies = date2.getTime() - date1.getTime();
+        List<TimeUnit> units = new ArrayList<TimeUnit>(EnumSet.allOf(TimeUnit.class));
+        Collections.reverse(units);
+        Map<TimeUnit,Long> result = new LinkedHashMap<TimeUnit,Long>();
+        long milliesRest = diffInMillies;
+        for ( TimeUnit unit : units ) {
+            long diff = unit.convert(milliesRest,TimeUnit.MILLISECONDS);
+            long diffInMilliesForUnit = unit.toMillis(diff);
+            milliesRest = milliesRest - diffInMilliesForUnit;
+            result.put(unit,diff);
+        }
+        return result;
     }
 
     void readCSV() {

@@ -6,17 +6,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainDisplay.Controller">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainDisplay.Controller">
    <children>
       <ImageView fx:id="background" fitHeight="1080.0" fitWidth="1920.0" onMouseClicked="#work" pickOnBounds="true" />
-      <Label fx:id="counterJa" layoutX="298.0" layoutY="540.0" text="Label" textFill="RED" visible="false">
+      <Label fx:id="counterJa" layoutX="298.0" layoutY="540.0" style="-fx-background-color: #ffffff;" text="Label" textFill="RED" visible="false">
          <font>
             <Font name="MS Outlook" size="48.0" />
          </font></Label>
-      <Label fx:id="counterNein" layoutX="1468.0" layoutY="540.0" text="Label" textFill="RED" visible="false">
+      <Label fx:id="counterNein" layoutX="1468.0" layoutY="540.0" style="-fx-background-color: #ffffff;" text="Label" textFill="RED" visible="false">
          <font>
             <Font size="48.0" />
          </font></Label>
       <Button fx:id="buttonSettings" layoutX="1.0" layoutY="1.0" mnemonicParsing="false" text="Settings" />
+      <Label fx:id="labelTimeRemaining" layoutX="17.0" layoutY="57.0" style="-fx-background-color: #ffffff;" text="Label" wrapText="true" />
    </children>
 </AnchorPane>
