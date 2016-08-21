@@ -15,7 +15,7 @@
  * ARE EXPRESSLY DISCLAIMED.  The License provides additional details about
  * this warranty disclaimer.
  */
-package mainDisplay;
+package remotecontrol;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -24,6 +24,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -31,6 +33,9 @@ import java.util.ResourceBundle;
  * Created by Stefan Zimmer on 19.08.2016.
  */
 public class ControllerSettings implements Initializable {
+
+    public static final String CSV_PATH_DATA = "S:\\data.csv";
+    public static final String CSV_PATH_LOG = "S:\\log.csv";
 
     public CheckBox announcement;
     public DatePicker pickerEndDate;
@@ -41,7 +46,8 @@ public class ControllerSettings implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        pickerEndDate.setValue(Main.endDate);
+        Main.readSettingsCSV();
+        pickerEndDate.setValue( Main.endDate);
         announcement.setSelected(Main.announcementMode);
 
         choiceBoxTimeHour.setItems(FXCollections.observableArrayList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23));
@@ -78,9 +84,38 @@ public class ControllerSettings implements Initializable {
     }
 
     public void onResetCountersClicked(ActionEvent actionEvent) {
-        Main.counterJa = 0;
-        Main.counterNein = 0;
-        Controller.writeLogHeaderCSV();
-        Controller.writeCSV();
+        writeLogHeaderCSV();
+        writeDataCSV(0,0);
+    }
+
+    public static void writeLogHeaderCSV() {
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(CSV_PATH_LOG);
+            fileWriter.append("Time");
+            fileWriter.append(";");
+            fileWriter.append("Ja");
+            fileWriter.append(";");
+            fileWriter.append("Nein");
+            fileWriter.append("\n");
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void writeDataCSV(int ja, int nein) {
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter(CSV_PATH_DATA);
+            fileWriter.append(Integer.toString(ja));
+            fileWriter.append(";");
+            fileWriter.append(Integer.toString(nein));
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

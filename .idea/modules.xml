@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/feedbacker.iml" filepath="$PROJECT_DIR$/feedbacker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/remotecontrol/remotecontrol.iml" filepath="$PROJECT_DIR$/remotecontrol/remotecontrol.iml" />
     </modules>
   </component>
 </project>

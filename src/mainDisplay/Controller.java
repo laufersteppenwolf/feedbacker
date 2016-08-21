@@ -235,7 +235,7 @@ public class Controller implements Initializable {
         return result;
     }
 
-    void readCSV() {
+    static void readCSV() {
         File f = new File(CSV_PATH_DATA);
         if (f.exists()) {
             BufferedReader fileReader = null;
@@ -258,7 +258,7 @@ public class Controller implements Initializable {
         }
     }
 
-    void writeCSV() {
+    static void writeCSV() {
         FileWriter fileWriter = null;
         try {
             fileWriter = new FileWriter(CSV_PATH_DATA);
@@ -296,7 +296,7 @@ public class Controller implements Initializable {
             e.printStackTrace();
         }
     }
-    static void writeLogHeaderCSV() {
+    public static void writeLogHeaderCSV() {
         FileWriter fileWriter = null;
         try {
             fileWriter = new FileWriter(CSV_PATH_LOG);
