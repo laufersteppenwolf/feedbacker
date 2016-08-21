@@ -28,7 +28,7 @@ import java.time.LocalDate;
 
 public class Main extends Application {
 
-    public static final String CSV_PATH_SETTINGS = "S:\\settings.csv";
+    public static final String CSV_PATH_SETTINGS = "F:\\settings.csv";
 
      static int counterJa = 0;
      static int counterNein = 0;
@@ -36,7 +36,7 @@ public class Main extends Application {
 
     // Settings
      static boolean announcementMode;
-     static LocalDate endDate; //today
+     static LocalDate endDate; //tomorrow
      static int endHour = 12;
      static int endMinute = 30;
 
@@ -46,16 +46,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         mainStage = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("mainDisplay.fxml"));
-        primaryStage.setTitle("Feedbacker");
-        primaryStage.setScene(new Scene(root, 300, 275));
-        primaryStage.setFullScreen(true);
-        //primaryStage.setMaximized(true);
-
-        primaryStage.show();
-
         //init variable
-        endDate = LocalDate.now();
+        endDate = LocalDate.now().plusDays(1);
         System.out.println(endDate);
 
         //read settings from file
@@ -64,6 +56,14 @@ public class Main extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        Parent root = FXMLLoader.load(getClass().getResource("mainDisplay.fxml"));
+        primaryStage.setTitle("Feedbacker");
+        primaryStage.setScene(new Scene(root, 1600, 900));
+        primaryStage.setFullScreen(true);
+        //primaryStage.setMaximized(true);
+
+        primaryStage.show();
 
     }
 
@@ -102,6 +102,8 @@ public class Main extends Application {
                 endMinute = Integer.parseInt(tokens[2]);
                 announcementMode = Boolean.parseBoolean(tokens[3]);
             }
+        } else {
+            writeSettingsCSV();
         }
     }
 

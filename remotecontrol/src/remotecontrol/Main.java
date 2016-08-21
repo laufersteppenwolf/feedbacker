@@ -28,11 +28,11 @@ import java.time.LocalDate;
 
 public class Main extends Application {
 
-    static final String CSV_PATH_SETTINGS = "S:\\settings.csv";
+    static final String CSV_PATH_SETTINGS = "F:\\settings.csv";
 
     // Settings
     static boolean announcementMode;
-    static LocalDate endDate; //today
+    static LocalDate endDate; //tomorrow
     static int endHour = 12;
     static int endMinute = 30;
 
@@ -46,7 +46,7 @@ public class Main extends Application {
         //primaryStage.setMaximized(true);
 
         //init variable
-        endDate = LocalDate.now();
+        endDate = LocalDate.now().plusDays(1);
 
         //read settings from file
         try {

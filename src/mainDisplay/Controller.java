@@ -45,9 +45,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Controller implements Initializable {
 
-    public static final String CSV_PATH_DATA = "S:\\data.csv";
-    public static final String CSV_PATH_LOG = "S:\\log.csv";
-    public static final String BACKGROUND_PATH = "S:\\test.png";
+    public static final String CSV_PATH_DATA = "F:\\data.csv";
+    public static final String CSV_PATH_LOG = "F:\\log.csv";
+    public static final String BACKGROUND_PATH = "F:\\background.png";
 
     public static int SERVICEROUTINE_DELAY_MS = 10;
     public static int PICTURE_REFRESH_TIME_S = 10;
@@ -172,18 +172,24 @@ public class Controller implements Initializable {
 
                     //update remaining time label
                     if (!Main.announcementMode && !Main.isDone) {
-                        Date enddate = Date.from(Main.endDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-                        Map<TimeUnit, Long> mapDiff = computeDiff(new Date(), enddate);
-                        String labelText = "Restzeit der Umfrage: \n" + mapDiff.get(TimeUnit.DAYS) + " Tage " + mapDiff.get(TimeUnit.HOURS) + " Stunden " + mapDiff.get(TimeUnit.MINUTES) + " Minuten";
+                        try {
+                            Date enddate = Date.from(Main.endDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                            enddate.setHours(Main.endHour);
+                            enddate.setMinutes(Main.endMinute);
+                            Map<TimeUnit, Long> mapDiff = computeDiff(new Date(), enddate);
+                            String labelText = "Restzeit der Umfrage: \n" + mapDiff.get(TimeUnit.DAYS) + " Tage " + mapDiff.get(TimeUnit.HOURS) + " Stunden " + mapDiff.get(TimeUnit.MINUTES) + " Minuten";
 
-                        //"Not on FX application thread" workaround
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                labelTimeRemaining.setText(labelText);
-                            }
-                        });
-                        labelTimeRemaining.setVisible(true);
+                            //"Not on FX application thread" workaround
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    labelTimeRemaining.setText(labelText);
+                                }
+                            });
+                            labelTimeRemaining.setVisible(true);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     } else {
                         labelTimeRemaining.setVisible(false);
                     }

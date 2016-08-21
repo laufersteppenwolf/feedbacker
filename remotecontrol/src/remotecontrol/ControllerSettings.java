@@ -34,8 +34,8 @@ import java.util.ResourceBundle;
  */
 public class ControllerSettings implements Initializable {
 
-    public static final String CSV_PATH_DATA = "S:\\data.csv";
-    public static final String CSV_PATH_LOG = "S:\\log.csv";
+    public static final String CSV_PATH_DATA = "F:\\data.csv";
+    public static final String CSV_PATH_LOG = "F:\\log.csv";
 
     public CheckBox announcement;
     public DatePicker pickerEndDate;
