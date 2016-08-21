@@ -50,6 +50,9 @@ public class Controller implements Initializable {
     public static final String CSV_PATH_LOG = "S:\\log.csv";
     public static final String BACKGROUND_PATH = "S:\\test.png";
 
+    public static int SERVICEROUTINE_DELAY_MS = 10;
+    public static int PICTURE_REFRESH_TIME_S = 10;
+
     public ImageView background;
     public Label counterJa;
     public Label counterNein;
@@ -60,6 +63,8 @@ public class Controller implements Initializable {
 
     public long resetTimeJa;
     public long resetTimeNein;
+
+    int picReloadLoop = 0;
 
 
     public void work(MouseEvent mouseEvent) throws InterruptedException {
@@ -159,7 +164,12 @@ public class Controller implements Initializable {
                         e.printStackTrace();
                     }
 
-                    //setBackground();
+                    if (picReloadLoop >= ((PICTURE_REFRESH_TIME_S * 1000) / SERVICEROUTINE_DELAY_MS)) {
+                        picReloadLoop = 0;
+                        setBackground();
+                    } else {
+                        picReloadLoop++;
+                    }
 
                     //update remaining time label
                     if (!Main.announcementMode && !Main.isDone) {
