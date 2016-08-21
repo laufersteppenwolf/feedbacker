@@ -45,8 +45,10 @@ public class Main extends Application {
         //primaryStage.setFullScreen(true);
         //primaryStage.setMaximized(true);
 
+        //init variable
         endDate = LocalDate.now();
 
+        //read settings from file
         try {
             readSettingsCSV();
         } catch (Exception e) {
@@ -54,6 +56,7 @@ public class Main extends Application {
         }
         System.out.println(endDate);
 
+        //display form
         primaryStage.show();
 
 

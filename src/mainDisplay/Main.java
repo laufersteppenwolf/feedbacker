@@ -54,9 +54,11 @@ public class Main extends Application {
 
         primaryStage.show();
 
+        //init variable
         endDate = LocalDate.now();
         System.out.println(endDate);
 
+        //read settings from file
         try {
             readSettingsCSV();
         } catch (Exception e) {

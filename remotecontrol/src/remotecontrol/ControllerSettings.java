@@ -46,7 +46,10 @@ public class ControllerSettings implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //read settings from file
         Main.readSettingsCSV();
+
+        //write settings values to form
         pickerEndDate.setValue( Main.endDate);
         announcement.setSelected(Main.announcementMode);
 
@@ -56,6 +59,7 @@ public class ControllerSettings implements Initializable {
         choiceBoxTimeHour.setValue(Main.endHour);
         choiceBoxTimeMinute.setValue(Main.endMinute);
 
+        //set onClickListeners for checkboxes
         choiceBoxTimeHour.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {

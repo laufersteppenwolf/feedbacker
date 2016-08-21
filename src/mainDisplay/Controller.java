@@ -30,7 +30,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
@@ -59,17 +58,19 @@ public class Controller implements Initializable {
     public Button buttonSettings;
     public Label labelTimeRemaining;
 
-    public static Thread hideLabels;
+    private static Thread hideLabels;
 
-    public long resetTimeJa;
-    public long resetTimeNein;
+    private long resetTimeJa;
+    private long resetTimeNein;
 
-    int picReloadLoop = 0;
+    private int picReloadLoop = 0;
 
 
     public void work(MouseEvent mouseEvent) throws InterruptedException {
         if (!Main.isDone && !Main.announcementMode) {
+            //read old counter values from file
             readCSV();
+            //handle mouse events
             if (mouseEvent.getButton() == MouseButton.PRIMARY) {
                 Main.counterJa++;
                 counterJa.setVisible(true);
@@ -88,6 +89,7 @@ public class Controller implements Initializable {
 
                 writeLogCSV("", "Nein");
             }
+            //write counter values to file
             writeCSV();
         }
     }
@@ -100,11 +102,13 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //initialize background
         setBackground();
-
+        //set fonts
         counterJa.setFont(Font.font("Verdana", FontWeight.BOLD, 42));
         counterNein.setFont(Font.font("Verdana", FontWeight.BOLD, 42));
 
+        //bind background to window size
         background.fitWidthProperty().bind(Main.mainStage.widthProperty());
         background.fitHeightProperty().bind(Main.mainStage.heightProperty());
 
@@ -113,6 +117,7 @@ public class Controller implements Initializable {
             @Override
             public void run() {
                 while (true) {
+                    //check if we need to hide/display something
                     if (!Main.announcementMode) {
                         if (!Main.isDone) {
                             long currentTime = Calendar.getInstance().getTimeInMillis();
@@ -131,29 +136,22 @@ public class Controller implements Initializable {
                         counterNein.setVisible(false);
                     }
 
+                    //check if the survey is done
                     if (Main.endDate != null){
-                        //System.out.println("date " + Main.endDate + " hour " + Main.endHour + " minute " + Main.endMinute);
                         if (LocalDate.now().isAfter(Main.endDate)) {
                             Main.isDone = true;
-                            //System.out.println("1");
                         } else if (LocalDate.now().isBefore(Main.endDate)) {
                             Main.isDone = false;
-                            //System.out.println("2");
                         } else if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) > Main.endHour) {
                             Main.isDone = true;
-                            //System.out.println("3");
                         } else if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) < Main.endHour) {
                             Main.isDone = false;
-                            //System.out.println("4");
                         } else if (Calendar.getInstance().get(Calendar.MINUTE) > Main.endMinute) {
                             Main.isDone = true;
-                            //System.out.println("5");
                         } else if (Calendar.getInstance().get(Calendar.MINUTE) < Main.endMinute) {
                             Main.isDone = false;
-                            //System.out.println("6");
                         } else {
                             Main.isDone = true; //default fallback
-                            //System.out.println("7");
                         }
                     }
 
@@ -164,6 +162,7 @@ public class Controller implements Initializable {
                         e.printStackTrace();
                     }
 
+                    //reload background every PICTURE_REFRESH_TIME_S seconds
                     if (picReloadLoop >= ((PICTURE_REFRESH_TIME_S * 1000) / SERVICEROUTINE_DELAY_MS)) {
                         picReloadLoop = 0;
                         setBackground();
